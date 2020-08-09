@@ -106,7 +106,7 @@ game_hash = {
     }
   }
 
-end 
+end
 
 # CALLING METHODS WITHIN METHODS
 # You'll be building a series of methods that operate on the above game hash to return certain information about the teams and players. Each method will operate on the game hash by calling the game_hash method that returns the game_hash. In other words, since our game_hash method returns our hash, you can think of the game_hash like a variable that points to our hash and operate on it just as you would with hashes in previous lessons.
@@ -116,20 +116,20 @@ end
 # def home_team_name
 #   game_hash[:home][:team_name]
 # end
- 
+
 
 def num_points_scored(player_name)
-playerpoints = 0 
+playerpoints = 0
  game_hash.collect do |team, stats|
   stats[:players].collect do |player, data|
 
     if player == player_name
       playerpoints += data[:points]
-    end 
-  end 
- end 
+    end
+  end
+ end
  playerpoints
-end 
+end
 
 
 # Build a method, shoe_size, that takes in an argument of a player's name and returns the shoe size for that player.
@@ -137,17 +137,17 @@ end
 # Think about how you will find the shoe size of the correct player. How can you check and see if a player's name matches the name that has been passed into the method as an argument?
 
 def shoe_size(player_name)
-playershoesize = 0 
+playershoesize = 0
  game_hash.collect do |team, stats|
   stats[:players].collect do |player, data|
 
     if player == player_name
       playershoesize += data[:shoe]
-    end 
-  end 
- end 
+    end
+  end
+ end
  playershoesize
-end 
+end
 
 
 
@@ -156,22 +156,22 @@ end
 
 
 def team_colors(team_name)
-  colors = nil 
+  colors = nil
   game_hash.collect do |team, stats|
     if stats[:team_name] == team_name
       colors = stats[:colors]
-    end 
-  end 
+    end
+  end
 colors
-end 
+end
 
 # Build a method, team_names, that operates on the game hash to return an array of the team names.
 
 def team_names
   game_hash.collect do |team, stats|
     stats[:team_name]
-  end 
-end 
+  end
+end
 
 team_names
 
@@ -181,33 +181,33 @@ team_names
 
 
 def player_numbers(team_name)
-  numbs = [] 
+  numbs = []
   game_hash.collect do |team, stats|
     if stats[:team_name] == team_name
       stats[:players].collect do |player, data|
         numbs.push(data[:number])
-      end 
-    end 
-  end 
+      end
+    end
+  end
 numbs
-end 
+end
 
 
 
 # Build a method, player_stats, that takes in an argument of a player's name and returns a hash of that player's stats.
 
 def player_stats(player_name)
-playerdata = nil 
+playerdata = nil
  game_hash.collect do |team, stats|
   stats[:players].collect do |player, data|
 
     if player == player_name
       playerdata = data
-    end 
-  end 
- end 
+    end
+  end
+ end
 playerdata
-end 
+end
 
 
 
@@ -220,62 +220,53 @@ end
 
 
 def big_shoe_rebounds
-  playerrebound = nil 
+  playerrebound = nil
   numbs = []
-  biggest_shoesize = nil 
+  biggest_shoesize = nil
       game_hash.collect do |team, stats|
         stats[:players].collect do |player, data|
           numbs.push(data[:shoe])
-          biggest_shoesize = numbs.sort[-1] 
+          biggest_shoesize = numbs.sort[-1]
              data.collect do |category, stat|
-               if category == :shoe 
+               if category == :shoe
                 if stat == biggest_shoesize
                   playerrebound =  data[:rebounds]
-                end 
+                end
               end
             end
           end
         end
         playerrebound
       end
-  
-  
-  
+
+
+
 
 # METHOD WORKS:
 
 # def big_shoe_rebounds
-#   playerrebound = nil 
-#   numbs = [] 
+#   playerrebound = nil
+#   numbs = []
 #   game_hash.collect do |team, stats|
 #       stats[:players].collect do |player, data|
 #         numbs.push(data[:shoe])
 #       biggest_shoesize = numbs.sort[-1]
-#     end 
-#   end 
+#     end
+#   end
 # biggest_shoesize = numbs.sort[-1]
 
 # game_hash.collect do |team, stats|
 #       stats[:players].collect do |player, data|
 #         data.collect do |category, stat|
-#           if category == :shoe 
+#           if category == :shoe
 #             if stat == biggest_shoesize
 #             playerrebound =  data[:rebounds]
-#             end 
-#           end 
-#       end 
-#     end 
-# end 
+#             end
+#           end
+#       end
+#     end
+# end
 # playerrebound
-# end 
+# end
 
 big_shoe_rebounds
-
-
-
-
-
-
-
-
-
