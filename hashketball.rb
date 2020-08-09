@@ -1,249 +1,190 @@
+require 'pry'
+
 def game_hash
-  hash = {
-  :home => {
-    :team_name => "Brooklyn Nets",
-    :colors => ["Black", "White"],
-    :players => {
-      "Alan Anderson" => {
-        :number => 0,
-        :shoe => 16,
-        :points => 22,
-        :rebounds => 12,
-        :assists => 12,
-        :steals => 3,
-        :blocks => 1,
-        :slam_dunks => 1
-      },
-      "Reggie Evans" => {
-        :number => 30,
-        :shoe => 14,
-        :points => 12,
-        :rebounds => 12,
-        :assists => 12,
-        :steals => 12,
-        :blocks => 12,
-        :slam_dunks => 7
-      },
-      "Brooke Lopez" => {
-        :number => 11,
-        :shoe => 17,
-        :points => 17,
-        :rebounds => 19,
-        :assists => 10,
-        :steals => 3,
-        :blocks => 1,
-        :slam_dunks => 15
-      },
-      "Mason Plumlee" => {
-        :number => 1,
-        :shoe => 19,
-        :points => 26,
-        :rebounds => 12,
-        :assists => 6,
-        :steals => 3,
-        :blocks => 8,
-        :slam_dunks => 5
-      },
-      "Jason Terry" => {
-        :number => 31,
-        :shoe => 15,
-        :points => 19,
-        :rebounds => 2,
-        :assists => 2,
-        :steals => 4,
-        :blocks => 11,
-        :slam_dunks => 1
-      }
-    }
-  },
-  :away => {:team_name => "Charlotte Hornets",
-    :colors => ["Turquoise", "Purple"],
-    :players => {
-      "Jeff Adrien" => {
-        :number => 4,
-        :shoe => 18,
-        :points => 10,
-        :rebounds => 1,
-        :assists => 1,
-        :steals => 2,
-        :blocks => 7,
-        :slam_dunks => 2
-      },
-      "Bismak Biyombo" => {
-        :number => 0,
-        :shoe => 16,
-        :points => 12,
-        :rebounds => 4,
-        :assists => 7,
-        :steals => 7,
-        :blocks => 15,
-        :slam_dunks => 10
-      },
-      "DeSagna Diop" => {
-        :number => 2,
-        :shoe => 14,
-        :points => 24,
-        :rebounds => 12,
-        :assists => 12,
-        :steals => 4,
-        :blocks => 5,
-        :slam_dunks => 5
-      },
-      "Ben Gordon" => {
-        :number => 8,
-        :shoe => 15,
-        :points => 33,
-        :rebounds => 3,
-        :assists => 2,
-        :steals => 1,
-        :blocks => 1,
-        :slam_dunks => 0
-      },
-      "Brendan Haywood" => {
-        :number => 33,
-        :shoe => 15,
-        :points => 6,
-        :rebounds => 12,
-        :assists => 12,
-        :steals => 22,
-        :blocks => 5,
-        :slam_dunks => 12
-      }
-     }
-    }
-   }
+  {
+    away: { team_name: 'Charlotte Hornets',
+            colors: %w[Turquoise Purple],
+            players: [
+              { player_name: 'Jeff Adrien',
+                number: 4,
+                shoe: 18,
+                points: 10,
+                rebounds: 1,
+                assists: 1,
+                steals: 2,
+                blocks: 7,
+                slam_dunks: 2 },
+              { player_name: 'Bismack Biyombo',
+                number: 0,
+                shoe: 16,
+                points: 12,
+                rebounds: 4,
+                assists: 7,
+                steals: 22,
+                blocks: 15,
+                slam_dunks: 10 },
+              { player_name: 'DeSagna Diop',
+                number: 2,
+                shoe: 14,
+                points: 24,
+                rebounds: 12,
+                assists: 12,
+                steals: 4,
+                blocks: 5,
+                slam_dunks: 5 },
+              { player_name: 'Ben Gordon',
+                number: 8,
+                shoe: 15,
+                points: 33,
+                rebounds: 3,
+                assists: 2,
+                steals: 1,
+                blocks: 1,
+                slam_dunks: 0 },
+              { player_name: 'Kemba Walker',
+                number: 33,
+                shoe: 15,
+                points: 6,
+                rebounds: 12,
+                assists: 12,
+                steals: 7,
+                blocks: 5,
+                slam_dunks: 12 }
+            ] },
+    home: { team_name: 'Brooklyn Nets',
+            colors: %w[Black White],
+            players: [
+              { player_name: 'Alan Anderson',
+                number: 0,
+                shoe: 16,
+                points: 22,
+                rebounds: 12,
+                assists: 12,
+                steals: 3,
+                blocks: 1,
+                slam_dunks: 1 },
+              { player_name: 'Reggie Evans',
+                number: 30,
+                shoe: 14,
+                points: 12,
+                rebounds: 12,
+                assists: 12,
+                steals: 12,
+                blocks: 12,
+                slam_dunks: 7 },
+              { player_name: 'Brook Lopez',
+                number: 11,
+                shoe: 17,
+                points: 17,
+                rebounds: 19,
+                assists: 10,
+                steals: 3,
+                blocks: 1,
+                slam_dunks: 15 },
+              { player_name: 'Mason Plumlee',
+                number: 1,
+                shoe: 19,
+                points: 26,
+                rebounds: 11,
+                assists: 6,
+                steals: 3,
+                blocks: 8,
+                slam_dunks: 5 },
+              { player_name: 'Jason Terry',
+                number: 31,
+                shoe: 15,
+                points: 19,
+                rebounds: 2,
+                assists: 2,
+                steals: 4,
+                blocks: 11,
+                slam_dunks: 1 }
+            ] }
+  }
 end
 
-name = "Brooke Lopez"
-home_players = game_hash[:home][:players]
-team = "Charlotte Hornets"
+def num_points_scored(sought_player_name)
+  game_hash.each do |_place, team|
+    team.each do |attribute, data|
+      next unless attribute == :players
 
-def num_points_scored name
-  game_hash.each do |team_position, team_data|
-    team_data[:players].each do |player_name, player_data|
-    if player_name == name
-      return player_data[:points]
-    elsif player_name =! name
-    return nil
-    end
-end
-end
-end
-
-def shoe_size name
-game_hash.each do |team_position, team_data|
-  team_data[:players].each do |player_name, player_data|
-    if player_name == name
-      return player_data[:shoe]
-      elsif player_name =! name
-      return nil
+      data.each do |player|
+        return player[:points] if player[:player_name] == sought_player_name
+      end
     end
   end
 end
+
+def shoe_size(sought_player_name)
+  game_hash.each do |_place, team|
+    team.each do |attribute, data|
+      next unless attribute == :players
+
+      data.each do |player|
+        return player[:shoe] if player[:player_name] == sought_player_name
+      end
+    end
+  end
 end
 
-def team_color team
- game_hash.each do |team_position, team_data|
-   if team == team_data[:team_name]
-     return team_data[:colors]
-   end
- end
+def team_colors(team_name)
+  game_hash.each do |place, team|
+    return game_hash[place][:colors] if team[:team_name] == team_name
+  end
 end
 
 def team_names
-  team_array =[]
-  team_array << game_hash[:home][:team_name]
-  team_array << game_hash[:away][:team_name]
-  return team_array
+  game_hash.collect do |_place, team|
+    team[:team_name]
+  end
 end
 
-def player_numbers team
-  number_array = []
-  game_hash.each do |team_position, team_data|
-    if team_data[:team_name] == team
-        team_data[:players].each do |player_name, player_scores|
-     number_array << player_scores[:points]
+def player_numbers(team_name)
+  nums = []
+  game_hash.each do |_place, team|
+    next unless team[:team_name] == team_name
 
+    team.each do |attribute, data|
+      next unless attribute == :players
+
+      data.each do |data|
+        nums << data[:number]
       end
     end
   end
-  number_array
+  nums
 end
 
-def player_stats name
-  player_hash = {}
-  game_hash.each do |team_position, team_data|
-   return team_data[:players].each do |player_name, player_data|
-     if player_name == name
-       return player_data
-       elsif player_name =! name
-       return nil
-     end
- end
-end
-end
+def player_stats(sought_player_name)
+  new_hash = {}
+  game_hash.collect do |place, team|
+    team.each do |attribute, _data|
+      next unless attribute == :players
 
-def shoe_size name
-game_hash.each do |team_position, team_data|
-  team_data[:players].each do |player_name, player_data|
-    if player_name == name
-      return player_data[:shoe]
-      elsif player_name =! name
-      return nil
+      game_hash[place][attribute].each do |player|
+        next unless player[:player_name] == sought_player_name
+
+        new_hash = player.delete_if do |k, _v|
+          k == :player_name
+        end
+      end
     end
   end
+  new_hash
 end
-end
 
+def big_shoe_rebounds
+  biggest_shoe = 0
+  num_rebounds = 0
 
-
-
-def most_points_scored
-  most_points = 0
-  player = ""
-  game_hash.each do |team_position, team_data|
-    team_data[:players].each do |player_name, player_data|
-      if most_points < player_data[:points]
-         player = player_name
-        most_points = player_data[:points]
-      else
-        most_points
+  game_hash.each do |_team, game_data|
+    game_data[:players].each do |player|
+      if player[:shoe] > biggest_shoe
+        biggest_shoe = player[:shoe]
+        num_rebounds = player[:rebounds]
       end
-   end
+    end
   end
-  player
-end
 
-
-def winning_team
-  away = 0
-  home = 0
-    game_hash[:home].each do |player_name, player_data|
-      player_data.each do |key, value|
-    if key == :points
-    home = home + value
-  end
-  end
-end
-  game_hash[:away].each do |player_name, player_data|
-    player_data.each do |key, value|
-      if key == :points
-    away = away + value
-  end
-  end
-  if away > home
-    return game_hash[:away][:team_name]
-  elsif home > away
-  return game_hash[:home][:team_name]
-else return "They tied!"
-  end
-end
-end
-
-def player_with_longest_name
-
-
-
-
-
+  num_rebounds
 end
